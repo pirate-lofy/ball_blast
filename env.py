@@ -22,11 +22,10 @@ class Env(gym.Env):
         self.reward=0
         self.width=width
         self.height=height
-        self.size=(height,width)
+        self.size=(height,width,1)
         
         
-        self.observation_space=spaces.Box(0,255,
-                                          (*self.size,1))
+        self.observation_space=spaces.Box(0,255,self.size)
         self.action_space=spaces.Discrete(2)
         
         self.cash=[]
@@ -81,7 +80,7 @@ class Env(gym.Env):
         
         
     def generate_data(self):
-        print('generate')
+#        print('generate')
         data=np.zeros(self.size,dtype=np.uint8)
         for tp in self.cash:
             a,b=tp[0],tp[1]
@@ -93,7 +92,7 @@ class Env(gym.Env):
                 continue
 
             data[a[0]:a[1],
-                      b[0]:b[1]]=255
+                      b[0]:b[1]]=[255]
         
 #        data=data.reshape((*self.size,1))
         return data
