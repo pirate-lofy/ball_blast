@@ -80,7 +80,7 @@ class Env(gym.Env):
         
         
     def generate_data(self):
-#        print('generate')
+        print('generate')
         data=np.zeros(self.size,dtype=np.uint8)
         for tp in self.cash:
             a,b=tp[0],tp[1]
