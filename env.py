@@ -30,7 +30,7 @@ class Env(gym.Env):
         self.action_space=spaces.Discrete(2)
         
         self.cash=[]
-        self.data=np.zeros(self.size)
+        self.data=np.zeros(self.size,dtype=np.uint8)
         self.tank=Tank(self.width/2,self.height-90,
                        30,90,self.cash)
         self.generate_ball()
@@ -121,7 +121,7 @@ class Env(gym.Env):
         self.cash.clear()
         self.balls.clear()
         self.reward=0
-        self.data=np.zeros((self.height,self.width))
+        self.data=np.zeros(self.size,dtype=np.uint8)
         self.tank=Tank(self.width/2,self.height-90,
                        30,90,self.cash)
         self.generate_ball()
@@ -130,7 +130,6 @@ class Env(gym.Env):
 
 
     def step(self,r):
-        print('action=',r)
         self.update(r)
         done=self.is_done()
         self.cashing()
