@@ -1,22 +1,30 @@
 import p5 as p
-import numpy as np
-import cv2 as cv
+from env import Env
+from stable_baselines import DQN
 
+e=None
+obs=None
+model=None
 def setup():
-    p.size(800,600)
+    global e,model,obs
     
-def show(img):
-    cv.imshow('cv',img)    
-    if cv.waitKey(1)==27:
-        exit()
+    p.size(800,600)
+    e=Env(width,height)
+    model = DQN.load("ball_blast_dqn_25000")
+    obs = e.reset()
 
 def draw():
     p.background(0)
-    
-    p.rect((100,200),20,30)
-    arr=np.zeros((600,800))
-    arr[200:230,100:120]=255
-    
-    show(arr)
+#    r=0
+#    if key_is_pressed:
+#        if key=='RIGHT':
+#            r=20
+#        elif key=='LEFT':
+#            r=-20
+#        elif key=='r':
+#            e.reset()
+    action, _states = model.predict(obs)
+    obs, rewards, dones, info = e.step(action)
+    e.render()
     
 p.run()
