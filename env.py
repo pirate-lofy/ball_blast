@@ -134,5 +134,4 @@ class Env(gym.Env):
         self.cashing()
         data=self.generate_data()
         self.cash.clear()
-        self.show(data)
         return data,self.reward,done,{}
