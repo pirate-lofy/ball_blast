@@ -95,9 +95,10 @@ class Env(gym.Env):
             data[a[0]:a[1],
                       b[0]:b[1]]=255
         
-        print('===========0-------------here')
         data=cv.resize(data,(self.obs_size[1],
                              self.obs_size[0]))
+        
+        print('===========0-------------here')
         data=np.expand_dims(data,-1)
 #        print(data.shape,data.dtype)
         return data
