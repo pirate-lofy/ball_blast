@@ -22,10 +22,11 @@ class Env(gym.Env):
         self.reward=0
         self.width=width
         self.height=height
-        self.size=(height,width,1)
+        self.size=(height,width)
+        self.obs_size=(150,200,1)
         
-        
-        self.observation_space=spaces.Box(0,255,self.size)
+        self.observation_space=spaces.Box(0,255,
+                                          self.obs_size)
         self.action_space=spaces.Discrete(2)
         
         self.cash=[]
@@ -92,9 +93,12 @@ class Env(gym.Env):
                 continue
 
             data[a[0]:a[1],
-                      b[0]:b[1]]=[255]
+                      b[0]:b[1]]=255
         
-#        data=data.reshape((*self.size,1))
+        data=cv.resize(data,(self.obs_size[1],
+                             self.obs_size[0]))
+        data=np.expand_dims(data,-1)
+#        print(data.shape,data.dtype)
         return data
 
     def show(self,img):
@@ -136,4 +140,5 @@ class Env(gym.Env):
         self.cashing()
         data=self.generate_data()
         self.cash.clear()
+        self.show(data)
         return data,self.reward,done,{}
