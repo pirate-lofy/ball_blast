@@ -64,4 +64,5 @@ class Tank:
             d2=p.dist(ball.pos,npos)
             
             if d1<(ball.r*0.5) or d2<(ball.r*0.5):
-                print(d1,d2)
+                return True
+        return False
