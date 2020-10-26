@@ -81,6 +81,7 @@ class Env(gym.Env):
         
         
     def generate_data(self):
+        print('generate')
         data=np.zeros(self.size,dtype=np.uint8)
         for tp in self.cash:
             a,b=tp[0],tp[1]
@@ -94,7 +95,7 @@ class Env(gym.Env):
             data[a[0]:a[1],
                       b[0]:b[1]]=255
         
-        data=data.reshape((*self.size,1))
+#        data=data.reshape((*self.size,1))
         return data
 
     def show(self,img):
