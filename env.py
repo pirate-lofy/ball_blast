@@ -125,6 +125,8 @@ class Env(gym.Env):
         self.tank=Tank(self.width/2,self.height-90,
                        30,90,self.cash)
         self.generate_ball()
+        print('---------',type(self.data))
+        return self.data
 
 
     def step(self,r):
