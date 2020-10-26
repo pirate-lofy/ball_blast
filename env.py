@@ -98,7 +98,6 @@ class Env(gym.Env):
         data=cv.resize(data,(self.obs_size[1],
                              self.obs_size[0]))
         
-        print('===========0-------------here')
         data=np.expand_dims(data,-1)
 #        print(data.shape,data.dtype)
         return data
@@ -142,5 +141,5 @@ class Env(gym.Env):
         self.cashing()
         data=self.generate_data()
         self.cash.clear()
-        self.show(data)
+        #self.show(data)
         return data,self.reward,done,{}
