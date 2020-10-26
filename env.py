@@ -30,7 +30,6 @@ class Env(gym.Env):
         self.action_space=spaces.Discrete(2)
         
         self.cash=[]
-        self.data=np.zeros(self.size,dtype=np.uint8)
         self.tank=Tank(self.width/2,self.height-90,
                        30,90,self.cash)
         self.generate_ball()
@@ -82,7 +81,7 @@ class Env(gym.Env):
         
         
     def generate_data(self):
-        self.data=np.zeros(self.size)
+        data=np.zeros(self.size,dtype=np.uint8)
         for tp in self.cash:
             a,b=tp[0],tp[1]
             a=tuple(map(round,a))
@@ -92,9 +91,10 @@ class Env(gym.Env):
             if a[0]<0 or a[1]<0:
                 continue
 
-            self.data[a[0]:a[1],
+            data[a[0]:a[1],
                       b[0]:b[1]]=255
-
+        
+        return data
 
     def show(self,img):
         cv.imshow('cv',img)    
@@ -105,6 +105,7 @@ class Env(gym.Env):
         self.tank.cashing()
         for ball in self.balls:
             ball.cashing()
+          
             
     def render(self):
         self.tank.render()
@@ -115,25 +116,23 @@ class Env(gym.Env):
         self.tank.update(r)
         self.update_balls()   
         self.check_balls()
-#        self.show(self.data)
         
     def reset(self):
         self.cash.clear()
         self.balls.clear()
         self.reward=0
-        self.data=np.zeros(self.size,dtype=np.uint8)
         self.tank=Tank(self.width/2,self.height-90,
                        30,90,self.cash)
         self.generate_ball()
-        self.data=np.expand_dims(self.data,-1)
-        return self.data
+        data=self.generate_data()
+        return data
 
 
     def step(self,r):
         self.update(r)
         done=self.is_done()
         self.cashing()
-        self.generate_data()  
+        data=self.generate_data()
         self.cash.clear()
-        self.data=np.expand_dims(self.data,-1)
-        return self.data,self.reward,done,{}
+        self.show(data)
+        return data,self.reward,done,{}
