@@ -125,7 +125,7 @@ class Env(gym.Env):
         self.tank=Tank(self.width/2,self.height-90,
                        30,90,self.cash)
         self.generate_ball()
-        print('---------',self.data.shape)
+        self.data=np.expand_dims(self.data,-1)
         return self.data
 
 
@@ -136,4 +136,5 @@ class Env(gym.Env):
         self.cashing()
         self.generate_data()  
         self.cash.clear()
+        self.data=np.expand_dims(self.data,-1)
         return self.data,self.reward,done,{}
