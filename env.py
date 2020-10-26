@@ -95,7 +95,6 @@ class Env(gym.Env):
                       b[0]:b[1]]=255
         
         data=data.reshape((*self.size,1))
-        print(data.shape)
         return data
 
     def show(self,img):
