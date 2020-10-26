@@ -5,5 +5,5 @@ from env import Env
 
 e=Env(800,600)
 model = DQN(CnnPolicy, e, verbose=2)
-model.learn(total_timesteps=25000)
-model.save("ball_blast_dqn_25000")
+model.learn(total_timesteps=2000)
+model.save("ball_blast_dqn_2000")
