@@ -11,6 +11,7 @@ class Ball:
         self.cash=cash
         self.width=width
         self.height=height
+        self.weight=(rnd.randint(1,self.r//2))
         
         self.alive=True
         self.color=123
@@ -19,6 +20,8 @@ class Ball:
                         rnd.random()*5*math.sin(self.angle))
         self.a=p.Vector(0,2)
         
+    
+    
     def update(self):
         self.pos+=self.v
         self.v+=self.a
@@ -47,8 +50,10 @@ class Ball:
     def hit(self,obj):
         d=p.dist(self.pos,obj)
         if d<self.r:
-            b=self.die()
-            return b
+            self.weight-=1
+            if self.weight<=0:
+                b=self.die()
+                return b
     
     def off_board(self):
         if self.pos.x-self.r<0:
